@@ -12,7 +12,7 @@
             "iso_checksum_type": "{{user `iso_checksum_type`}}",
             "guest_os_type": "ArchLinux_64",
             "guest_additions_mode": "disable",
-            "http_directory": ".",
+            "http_directory": "http",
             "boot_wait": "5s",
             "boot_command": [
                 "<enter><wait10><wait10>",
@@ -22,9 +22,30 @@
             ],
             "disk_size": 20480,
             "hard_drive_interface": "sata",
-            "ssh_username": "root",
+            "ssh_username": "vagrant",
             "ssh_password": "vagrant",
-            "shutdown_command": "echo 'vagrant'|sudo -S shutdown -P now"
+            "ssh_wait_timeout": "3600s",
+            "shutdown_command": "echo 'vagrant'|sudo -S shutdown -P now",            
+            "vboxmanage": [
+                [
+                    "modifyvm",
+                    "{{.Name}}",
+                    "--memory",
+                    "1024"
+                ],
+                [
+                    "modifyvm",
+                    "{{.Name}}",
+                    "--cpus",
+                    "2"
+                ],
+                [
+                    "modifyvm",
+                    "{{.Name}}",
+                    "--rtcuseutc",
+                    "on"
+                ]
+            ]
         }
     ],
     "post-processors": [

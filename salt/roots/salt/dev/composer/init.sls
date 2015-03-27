@@ -6,7 +6,7 @@ get-composer:
   cmd.run:
     - name: 'CURL=`which curl`; $CURL -sS https://getcomposer.org/installer | /usr/bin/php'
     - unless: test -f /usr/local/bin/composer
-    - onlyif: test -f /usr/local/bin/php
+    - onlyif: test -f /usr/bin/php
     - cwd: /root/
     - require:
       - sls: php

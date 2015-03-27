@@ -10,6 +10,7 @@ Vagrant.configure("2") do |config|
     v.gui = true
     v.memory = 2048
     v.name = "packer-arch-virtualbox"
+    v.customize ["modifyvm", :id, "--rtcuseutc", "on"]
   end
 
   config.vm.network "private_network", type: "dhcp"

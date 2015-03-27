@@ -3,7 +3,7 @@
 DISK='/dev/sda'
 FQDN='vagrant-arch.dev.local'
 KEYMAP='us'
-LANGUAGE='en_US.UTF-8'
+LANG='en_US.UTF-8'
 PASSWORD=$(/usr/bin/openssl passwd -crypt 'vagrant')
 TIMEZONE='UTC'
 
@@ -46,9 +46,11 @@ echo '==> generating the system configuration script'
 cat <<-EOF > "${TARGET_DIR}${CONFIG_SCRIPT}"
 	echo '${FQDN}' > /etc/hostname
 	/usr/bin/ln -s /usr/share/zoneinfo/${TIMEZONE} /etc/localtime
-	echo 'KEYMAP=${KEYMAP}' > /etc/vconsole.conf
-	/usr/bin/sed -i 's/#${LANGUAGE}/${LANGUAGE}/' /etc/locale.gen
+	#echo 'KEYMAP=${KEYMAP}' > /etc/vconsole.conf
+	/usr/bin/sed -i 's/#${LANG}/${LANG}/' /etc/locale.gen
 	/usr/bin/locale-gen
+	echo 'LANG=${LANG}' > /etc/locale.conf
+	/usr/bin/hwclock --systohc --utc
 	/usr/bin/mkinitcpio -p linux
 	/usr/bin/usermod --password ${PASSWORD} root
 	# https://wiki.archlinux.org/index.php/Network_Configuration#Device_names

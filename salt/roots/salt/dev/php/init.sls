@@ -10,13 +10,13 @@ php-fpm:
     - enable: true
     - watch:
       - pkg: php-fpm
-      - file: /etc/php.ini
+      - file: /etc/php/php.ini
       - file: /etc/php/fpm.d/www.conf
       - file: /etc/php/conf.d/xdebug.ini
 
 php-ini:
   file.managed:
-    - name: /etc/php.ini
+    - name: /etc/php/php.ini
     - source: salt://_files/php/php.ini
     - template: jinja
     - require:
@@ -32,7 +32,7 @@ php-fpm-www-conf:
 
 php-fpm-conf:
   file.managed:
-    - name: /etc/php-fpm.conf
+    - name: /etc/php/php-fpm.conf
     - source: salt://_files/php/php-fpm.conf
     - template: jinja
     - require:
