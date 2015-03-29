@@ -20,6 +20,7 @@ Vagrant.configure("2") do |config|
 
   config.vm.synced_folder "salt/roots/salt", "/srv/salt"
   config.vm.synced_folder "salt/roots/pillar", "/srv/pillar"
+  config.vm.synced_folder ".", "/srv/http/dev", type: "nfs", mount_options: ["noatime"], linux__nfs_options: ["async", "rw", "no_subtree_check", "all_squash"]
   
   config.vm.provision :salt do |salt|    
     salt.always_install = true
