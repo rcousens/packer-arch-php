@@ -59,6 +59,9 @@ cat <<-EOF > "${TARGET_DIR}${CONFIG_SCRIPT}"
 	# /usr/bin/sed -i 's/#UseDNS yes/UseDNS no/' /etc/ssh/sshd_config
 	/usr/bin/systemctl enable dhcpcd@enp0s3.service
 	/usr/bin/systemctl enable sshd.service
+	/usr/bin/systemctl enable rpcbind.service
+	/usr/bin/systemctl enable nfs-client.target
+	/usr/bin/systemctl enable remote-fs.target
 
 	# VirtualBox Guest Additions
 	/usr/bin/pacman -S --noconfirm linux-headers virtualbox-guest-utils-nox virtualbox-guest-dkms
