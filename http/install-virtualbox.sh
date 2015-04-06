@@ -11,6 +11,9 @@ CONFIG_SCRIPT='/usr/local/bin/arch-config.sh'
 ROOT_PARTITION="${DISK}1"
 TARGET_DIR='/mnt'
 
+echo '==> selecting Australian mirror'
+sed -i '1iServer = http://mirror.internode.on.net/pub/archlinux/$repo/os/$arch' /etc/pacman.d/mirrorlist
+
 echo "==> clearing partition table on ${DISK}"
 /usr/bin/sgdisk --zap ${DISK}
 
@@ -89,6 +92,9 @@ cat <<-EOF > "${TARGET_DIR}${CONFIG_SCRIPT}"
 	# clean up
 	# /usr/bin/pacman -Rcns --noconfirm gptfdisk
 	/usr/bin/pacman -Scc --noconfirm
+
+	# remove mirror
+	sed -i '1d' /etc/pacman.d/mirrorlist
 EOF
 
 echo '==> entering chroot and configuring system'
